@@ -21,8 +21,15 @@ pipeline {
                 sh "dotnet publish dotnet-core-webapp-demo.csproj"
             }
         }
-        stage('Deploy') { 
-            azureWebAppPublish azureCredentialsId: params.azure-sp-id, resourceGroup: params.azure-app-resourcegroup, appName: params.azure-app-name, sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
+        stage('Deploy') {
+            steps {
+                azureWebAppPublish appName: params.azure-app-name,
+                    azureCredentialsId: params.azure-sp-id,
+                    publishType: "file",
+                    filePath: "**/*.*",
+                    resourceGroup: params.azure-app-resourcegroup,
+                    sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
+            }
         }
     }
 }
