@@ -3,22 +3,27 @@ pipeline {
     stages {
         stage('Restore packages') { 
             steps {
-                bat "dotnet restore dotnet-core-webapp-demo.csproj"
+                sh "dotnet restore dotnet-core-webapp-demo.csproj"
             }
         }
         stage('Clean Packages') { 
             steps {
-                bat "dotnet clean dotnet-core-webapp-demo.csproj"
+                sh "dotnet clean dotnet-core-webapp-demo.csproj"
             }
         }
         stage('Build') { 
             steps {
-                bat "dotnet build dotnet-core-webapp-demo.csproj --configuration Release"
+                sh "dotnet build dotnet-core-webapp-demo.csproj --configuration Release"
             }
         }
         stage('Publish') { 
             steps {
-                bat "dotnet publish dotnet-core-webapp-demo.csproj"
+                sh "dotnet publish dotnet-core-webapp-demo.csproj"
+            }
+        }
+        stage('Deploy') { 
+            steps {
+                azureWebAppPublish azureCredentialsId: params.azure-sp-id, resourceGroup: params.azure-app-resourcegroup, appName: params.azure-app-name, sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
             }
         }
     }
