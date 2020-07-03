@@ -1,5 +1,13 @@
 pipeline {
-    agent any 
+    agent any
+    parameters {
+        string(name: 'azure-app-resourcegroup', defaultValue: 'qe-training', description: 'Azure Resource Group'),
+        string(name: 'azure-app-name', defaultValue: 'QE-COE', description: 'Azure WebApp Name'),
+        credentials(name: 'azure-sp-id', credentialType: 'Microsoft Azure Service Principal', defaultValue: 'azure-sp-id', description: 'Azure WebApp Name')
+    }
+    triggers {
+       cron('* * * * *')
+    }
     stages {
         stage('Restore packages') { 
             steps {
@@ -23,7 +31,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                azureWebAppPublish appName: env.azure-app-name,azureCredentialsId: env.azure-sp-id,resourceGroup: env.azure-app-resourcegroup,sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
+                azureWebAppPublish appName: "${params.azure-app-name
+                }",azureCredentialsId: "${params.azure-sp-id}",resourceGroup: "${params.azure-app-resourcegroup}",sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
             }
         }
     }
