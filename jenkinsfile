@@ -22,9 +22,7 @@ pipeline {
             }
         }
         stage('Deploy') { 
-            steps {
-                azureWebAppPublish azureCredentialsId: params.azure-sp-id, resourceGroup: params.azure-app-resourcegroup, appName: params.azure-app-name, sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
-            }
+            azureWebAppPublish azureCredentialsId: params.azure-sp-id, resourceGroup: params.azure-app-resourcegroup, appName: params.azure-app-name, sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
         }
     }
 }
