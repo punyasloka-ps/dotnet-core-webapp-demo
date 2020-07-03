@@ -20,11 +20,6 @@ pipeline {
             steps {
                 bat "dotnet publish dotnet-core-webapp-demo.csproj"
             }
-        }        
-        stage('Deploy') { 
-            steps {
-                // 
-            }
         }
     }
 }
