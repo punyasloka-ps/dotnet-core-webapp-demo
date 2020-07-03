@@ -6,7 +6,7 @@ pipeline {
         credentials(name: 'azure_sp_id', credentialType: 'Microsoft Azure Service Principal', defaultValue: 'azure-sp-id', description: 'Azure WebApp Name')
     }
     triggers {
-       cron('* * * * *')
+       pollSCM ('* * * * *')
     }
     stages {
         stage('Restore packages') { 
