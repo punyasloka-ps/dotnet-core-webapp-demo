@@ -1,9 +1,9 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'azure-app-resourcegroup', defaultValue: 'qe-training', description: 'Azure Resource Group')
-        string(name: 'azure-app-name', defaultValue: 'QE-COE', description: 'Azure WebApp Name')
-        credentials(name: 'azure-sp-id', credentialType: 'Microsoft Azure Service Principal', defaultValue: 'azure-sp-id', description: 'Azure WebApp Name')
+        string(name: 'azure_app_resourcegroup', defaultValue: 'qe-training', description: 'Azure Resource Group')
+        string(name: 'azure_app_name', defaultValue: 'QE-COE', description: 'Azure WebApp Name')
+        credentials(name: 'azure_sp_id', credentialType: 'Microsoft Azure Service Principal', defaultValue: 'azure-sp-id', description: 'Azure WebApp Name')
     }
     triggers {
        cron('* * * * *')
@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                azureWebAppPublish appName: "${params.azure-app-name}",azureCredentialsId: "${params.azure-sp-id}",resourceGroup: "${params.azure-app-resourcegroup}",sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
+                azureWebAppPublish appName: "${params.azure_app_name}",azureCredentialsId: "${params.azure_sp_id}",resourceGroup: "${params.azure_app_resourcegroup}",sourceDirectory: "src/dotnet-core-webapp-demo/bin/Release/netcoreapp3.1/publish/"
             }
         }
     }
