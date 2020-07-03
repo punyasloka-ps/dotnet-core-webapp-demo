@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                azureWebAppPublish azureCredentialsId: "${params.azure_sp_id}",appName: "${params.azure_app_name}",resourceGroup: "${params.azure_app_resourcegroup}",filePath : "*/*.*",sourceDirectory: "bin/Release/netcoreapp3.1/publish/"
+                azureWebAppPublish azureCredentialsId: "${params.azure_sp_id}",appName: "${params.azure_app_name}",resourceGroup: "${params.azure_app_resourcegroup}"
             }
         }
     }
