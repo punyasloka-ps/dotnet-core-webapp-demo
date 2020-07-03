@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Publish') { 
             steps {
-                sh "dotnet publish dotnet-core-webapp-demo.csproj"
+                sh "dotnet publish dotnet-core-webapp-demo.csproj --configuration Release"
             }
         }
         stage('Deploy') {
